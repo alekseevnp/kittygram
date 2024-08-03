@@ -1,9 +1,21 @@
-# Обновлённый urls.py
-from django.urls import path
+# urls.py
+from rest_framework.routers import DefaultRouter  # SimpleRouter
 
-from cats.views import CatList, CatDetail
+from django.urls import include, path
+
+from cats.views import CatViewSet
+
+# Создаётся роутер
+router = DefaultRouter()  # SimpleRouter()
+# Вызываем метод .register с нужными параметрами
+router.register("cats", CatViewSet)
+# В роутере можно зарегистрировать любое количество пар "URL, viewset":
+# например
+# router.register('owners', OwnerViewSet)
+# Но нам это пока не нужно
 
 urlpatterns = [
-    path("cats/", CatList.as_view()),
-    path("cats/<int:pk>/", CatDetail.as_view()),
+    # Все зарегистрированные в router пути доступны в router.urls
+    # Включим их в головной urls.py
+    path("", include(router.urls)),
 ]
