@@ -1,8 +1,9 @@
+# Обновлённый urls.py
 from django.urls import path
 
-from cats.views import APICat  # , cat_list
+from cats.views import CatList, CatDetail
 
 urlpatterns = [
-    path("cats/", APICat.as_view()),
-    #   path('cats/', cat_list),
+    path("cats/", CatList.as_view()),
+    path("cats/<int:pk>/", CatDetail.as_view()),
 ]
